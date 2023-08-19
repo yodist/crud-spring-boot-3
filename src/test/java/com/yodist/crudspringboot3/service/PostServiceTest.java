@@ -31,11 +31,6 @@ public class PostServiceTest {
     @MockBean
     PostRepository postRepository;
 
-    @BeforeEach
-    public void setup() {
-        Mockito.doNothing().when(postRepository).deleteById(anyLong());
-    }
-
     @Test
     public void findAll_success() {
         Mockito.when(postRepository.findAll()).thenReturn(dummyPostList());
@@ -77,6 +72,7 @@ public class PostServiceTest {
 
     @Test
     public void deletePostById_success() {
+        Mockito.doNothing().when(postRepository).deleteById(anyLong());
         postService.deletePostById(1L);
         Mockito.verify(postRepository).deleteById(1L);
     }
